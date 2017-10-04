@@ -123,7 +123,7 @@ public class Pedido {
 			somaPedido+=infoPedido[i][3];
 		}
 		if(menorDistancia>=500){
-			d
+			
 		}else if(menorDistancia>=100 && menorDistancia<=500){
 			
 		}else if(menorDistancia<100){
