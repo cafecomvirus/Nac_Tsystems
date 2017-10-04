@@ -142,6 +142,4 @@ public class Pedido {
 		}
 		return frete;
 	}
-	
-	public static double
 }

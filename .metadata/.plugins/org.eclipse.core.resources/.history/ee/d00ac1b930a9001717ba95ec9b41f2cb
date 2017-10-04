@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Pedido {
 	static int prazo=0;
 	static Scanner e = new Scanner(System.in);
-	static double precoVolumePeso[][] = new double[][] { { 1, 15.00, 0.012, 3.0 }, { 2, 16.00, 0.010, 2.4 },
-			{ 3, 17.00, 0.011, 3.6 } };
-	static double ctDistribuicao[][] = new double[][] { { -23.5489, -46.6388 }, { -30.0277, -51.2287 },
-			{ -12.9704, -38.5124 }, { -8.05428, -34.8813 }, { -16.6799, -49.255 }, { -3.10719, -60.0261 } };
+	static String precoVolumePeso[][] = new String[][] { { "1", "15.00", "0.012", "3.0"}, {"2", "16.00", "0.010", "2.4"},
+			{"3", "17.00", "0.011", "3.6"} };
+	static String ctDistribuicao[][] = new String[][] { { "-23.5489", "-46.6388" }, { "-30.0277", "-51.2287"},
+			{ "-12.9704", "-38.5124" }, { "-8.05428", "-34.8813" }, { "-16.6799", "-49.255" }, { "-3.10719", "-60.0261" } };
 	static double localCli[] = new double[2];	
 	static double infoPedido[][];
 	static int d=109;

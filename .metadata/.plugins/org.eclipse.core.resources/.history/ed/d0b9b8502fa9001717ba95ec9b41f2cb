@@ -3,7 +3,6 @@ package nac;
 import java.util.Scanner;
 
 public class Pedido {
-	static int prazo=0;
 	static Scanner e = new Scanner(System.in);
 	static double precoVolumePeso[][] = new double[][] { { 1, 15.00, 0.012, 3.0 }, { 2, 16.00, 0.010, 2.4 },
 			{ 3, 17.00, 0.011, 3.6 } };
@@ -104,6 +103,7 @@ public class Pedido {
 	
 	public static double calculaDistancia(){
 		double menorDistancia=0;
+		double prazo=0;
 		double distancia[]=new double [6];
 		for(int i = 0; i<6; i++){
 			distancia[i]=Math.sqrt(Math.pow(ctDistribuicao[i][1]-ctDistribuicao[i][2],2)-Math.pow((localCli[1]-localCli[2]), 2))*d;	
@@ -142,6 +142,4 @@ public class Pedido {
 		}
 		return frete;
 	}
-	
-	public static double
 }
