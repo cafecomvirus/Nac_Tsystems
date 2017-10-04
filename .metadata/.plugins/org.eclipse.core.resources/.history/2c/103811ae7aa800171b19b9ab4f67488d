@@ -1,0 +1,116 @@
+package nac;
+
+import java.util.Scanner;
+
+public class Pedido {
+	static Scanner e = new Scanner(System.in);
+	static double precoVolumePeso[][] = new double[][] { { 1, 15.00, 0.012, 3.0 }, { 2, 16.00, 0.010, 2.4 },
+			{ 3, 17.00, 0.011, 3.6 } };
+	static double ctDistribuicao[][] = new double[][] { { -23.5489, -46.6388 }, { -30.0277, -51.2287 },
+			{ -12.9704, -38.5124 }, { -8.05428, -34.8813 }, { -16.6799, -49.255 }, { -3.10719, -60.0261 } };
+	static double localCli[] = new double[2];		
+	static int d=109;
+	
+	public static void main(String[] args) {
+		String cliente = "";
+		
+		addPedido();
+		if (addPedido() == true) {
+			iniciarPedido(cliente);
+		}
+		
+	}
+
+	public static boolean addPedido() {
+		String resp = "";
+		System.out.println("Deseja fazer um pedido? ");
+		System.out.println("S - Para Continuar");
+		System.out.println("N - Para Cancelar");
+		resp = e.next().toUpperCase();
+		while (resp != "S" || resp != "N") {
+			System.out.println("Digite uma opção válida!");
+			System.out.println("S ou N");
+			resp = e.next().toUpperCase();
+		}
+		if (resp.equals("S")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static double[][] iniciarPedido(String cliente) {
+		String resp="S";
+		int op=0, qt=0;
+		//para controlar o indice da matriz
+		int rodada=0;
+		//posição 0 = quantidade, posição 2 = preço, posição 3 = peso
+		double prod[]=new double [3];
+		double infoPedido[][]=new double[3][3];
+		System.out.println("Nome do cliente: ");
+		cliente = e.next();
+		System.out.println("Digite a latitude: ");
+		localCli[0] = e.nextDouble();
+		System.out.println("Digite a longitude");
+		localCli[1] = e.nextDouble();
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; i < 4; i++) {
+				System.out.print("Produto: " + precoVolumePeso[i][j]);
+				System.out.print(" - Preço: R$" + precoVolumePeso[i][j]);
+				System.out.print(" - Volume: " + precoVolumePeso[i][j] + "m³");
+				System.out.print(" - Peso: " + precoVolumePeso[i][j] + "Kg");
+			}
+		}
+		while(resp.equals("S")){
+			System.out.println("Qual produto deseja comprar?");
+			op=e.nextInt();
+			while(op<1&&op>3){
+				System.out.println("Opção inválida!");
+				System.out.println("Digite 1, 2 ou 3: ");
+				op=e.nextInt();
+			}
+			System.out.println("Qual a quantidade?");
+			qt=e.nextInt();
+			switch(op){
+			case 1:
+				prod[0]=qt;
+				prod[1]=qt*precoVolumePeso[1][1];
+				prod[2]=qt*precoVolumePeso[1][3];
+				break;
+			case 2:
+				prod[0]=qt;
+				prod[1]=qt*precoVolumePeso[1][1];
+				prod[2]=qt*precoVolumePeso[1][3];
+				break;
+			case 3:
+				prod[0]=qt;
+				prod[1]=qt*precoVolumePeso[1][1];
+				prod[2]=qt*precoVolumePeso[1][3];
+			}
+			for(int i =0; i<3; i++){
+				infoPedido[rodada][i]=prod[i];	
+			}
+			rodada++;
+			System.out.println("Deseja comprar outro produto?");
+			resp=e.next().toUpperCase();
+			System.out.println("S - Para continuar");
+			System.out.println("N - Para finalizar");
+			while(resp!="S"||resp!="N"){
+				System.out.println("Digite uma opção válida: ");
+				resp=e.next().toUpperCase();
+			}
+		}
+		return infoPedido;
+	}
+	
+	public static double calculaDistancia(){
+		double menorDistancia=0;
+		double expoente = 2;
+		double distancia[]=new double [6];
+		for(int i = 0; i<6; i++){
+			distancia[i]=Math.sqrt(Math.pow(ctDistribuicao[i][1]-ctDistribuicao[i][2],2)-Math.pow((localCli[1]-localCli[2]), 2))*d;	
+		}
+		
+		return menorDistancia;
+	}
+}
