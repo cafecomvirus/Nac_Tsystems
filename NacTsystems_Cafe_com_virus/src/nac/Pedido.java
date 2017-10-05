@@ -8,43 +8,28 @@ public class Pedido {
 	static double precoVolumePeso[][] = new double[][] { { 1, 15.00, 0.012, 3.0 }, { 2, 16.00, 0.010, 2.4 },
 			{ 3, 17.00, 0.011, 3.6 } };
 	static double ctDistribuicao[][] = new double[][] { { -23.5489, -46.6388 }, { -30.0277, -51.2287 },
-			{ -12.9704, -38.5124 }, { -8.05428, -34.8813 }, { -16.6799, -49.255 }, { -3.10719, -60.0261 } };
+			{ -12.9704, -38.5124 }, { -8.05428, -34.8813 }, { -16.6799, -49.255 }, { -3.10719, -60.0261 } };	
 	static double localCli[] = new double[2];	
-	static double infoPedido[][];
+	//quantidade - preco - peso	
+	static double infoPedido[][] = new double [3][3];
 	static int d=109;
+	static String cliente = "";
+	static String data=""; 
+	static double valorCompra=0;
 	
 	public static void main(String[] args) {
-		String cliente = "";
-		
-		if (addPedido()) {
-			iniciarPedido(cliente);
-			calculaFrete(calculaDistancia());
-		}
-		
+			iniciarPedido();
+			//calculaFrete(calculaDistancia());
+			finalizaPedido(calculaFrete(calculaDistancia()));
 	}
 
-	public static boolean addPedido() {
-		String resp = "";
-		System.out.println("Deseja fazer um pedido? ");
-		System.out.println("S - Para Continuar");
-		System.out.println("N - Para Cancelar");
-		resp = e.next().toUpperCase();
-		while (!resp.equals("S") && !resp.equals("N")) {
-			System.out.println("Digite uma opção válida!");
-			System.out.println("S ou N");
-			resp = e.next().toUpperCase();
-		}
-		return resp.equals("S");	
-	}
-
-	public static double[][] iniciarPedido(String cliente) {
-		String resp="S";
-		int op=0, qt=0;
+	public static double[][] iniciarPedido() {
+		int qt=0;
 		//para controlar o indice da matriz
-		int rodada=0;
 		//posição 0 = quantidade, posição 2 = preço, posição 3 = peso
 		double prod[]=new double [3];
-		infoPedido=new double[3][3];
+		System.out.println("Data do pedido:");
+		data=e.next();
 		System.out.println("Nome do cliente: ");
 		cliente = e.next();
 		System.out.println("Digite a latitude: ");
@@ -52,53 +37,21 @@ public class Pedido {
 		System.out.println("Digite a longitude");
 		localCli[1] = e.nextDouble();
 		for (int i = 0; i < 3; i++) {
-			
 				System.out.print("Produto: " + precoVolumePeso[i][0]);
 				System.out.print(" - Preço: R$" + precoVolumePeso[i][1]);
 				System.out.print(" - Volume: " + precoVolumePeso[i][2] + "m³");
 				System.out.print(" - Peso: " + precoVolumePeso[i][3] + "Kg");
 				System.out.println(" ");
-			
 		}
-		while(resp.equals("S")){
-			System.out.println("Qual produto deseja comprar?");
-			op=e.nextInt();
-			while(op<1&&op>3){
-				System.out.println("Opção inválida!");
-				System.out.println("Digite 1, 2 ou 3: ");
-				op=e.nextInt();
-			}
-			System.out.println("Qual a quantidade?");
-			qt=e.nextInt();
-			switch(op){
-			case 1:
-				prod[0]=qt;
-				prod[1]=qt*precoVolumePeso[1][1];
-				prod[2]=qt*precoVolumePeso[1][3];
-				break;
-			case 2:
-				prod[0]=qt;
-				prod[1]=qt*precoVolumePeso[1][1];
-				prod[2]=qt*precoVolumePeso[1][3];
-				break;
-			case 3:
-				prod[0]=qt;
-				prod[1]=qt*precoVolumePeso[1][1];
-				prod[2]=qt*precoVolumePeso[1][3];
-			}
-			for(int i =0; i<3; i++){
-				infoPedido[rodada][i]=prod[i];	
-			}
-			rodada++;
-			System.out.println("Deseja comprar outro produto?");
-			resp=e.next().toUpperCase();
-			System.out.println("S - Para continuar");
-			System.out.println("N - Para finalizar");
-			while(!resp.equals("S")&&!resp.equals("N")){
-				System.out.println("Digite uma opção válida: ");
-				resp=e.next().toUpperCase();
-			}
+		
+		for(int i = 0; i<3; i++){
+			System.out.println("Quantidade de produtos "+(precoVolumePeso[i][0])+ ": ");
+			infoPedido[i][0]=e.nextDouble();
+			infoPedido[i][1]=infoPedido[i][0]*precoVolumePeso[i][1];
+			infoPedido[i][2]=infoPedido[i][0]*precoVolumePeso[i][3];
+			valorCompra+=infoPedido[i][1];
 		}
+		
 		return infoPedido;
 	}
 	
@@ -106,7 +59,7 @@ public class Pedido {
 		double menorDistancia=0;
 		double distancia[]=new double [6];
 		for(int i = 0; i<6; i++){
-			distancia[i]=Math.sqrt(Math.pow(ctDistribuicao[i][1]-ctDistribuicao[i][2],2)-Math.pow((localCli[1]-localCli[2]), 2))*d;	
+			distancia[i]=Math.sqrt(Math.pow(ctDistribuicao[i][0]-ctDistribuicao[i][1],2)-Math.pow((localCli[0]-localCli[1]), 2))*d;	
 		}
 		for(int j = 0; j<6; j++){
 			if(j==0){
@@ -130,8 +83,8 @@ public class Pedido {
 		double somaPedido=0;
 		double frete=0;
 		
-		for(int i = 0; i<infoPedido.length; i++){
-			somaPedido+=infoPedido[i][3];
+		for(int i = 0; i<3; i++){
+			somaPedido+=infoPedido[i][2];
 		}
 		if(menorDistancia>=500){
 			frete=((somaPedido*(menorDistancia/300)*0.2)+50);
@@ -141,7 +94,19 @@ public class Pedido {
 			frete=((somaPedido*(menorDistancia/25)*0.04)+10);
 		}
 		return frete;
+		
 	}
 	
-	public static double
+	public static void finalizaPedido(double frete){
+		System.out.println("Data: "+data);
+		System.out.println("Cliente: "+cliente);
+		System.out.println("Latitude: "+localCli[0]);
+		System.out.println("Longitude: "+localCli[1]);
+		System.out.println("Cor 1 "+" - Quantidade: "+infoPedido[0][0] +" - Valor: R$"+infoPedido[0][1]);
+		System.out.println("Cor 2 "+" - Quantidade: "+infoPedido[1][0] +" - Valor: R$"+infoPedido[1][1]);
+		System.out.println("Cor 3 "+" - Quantidade? "+infoPedido[2][0] +" - Valor: R$"+infoPedido[2][1]);
+		System.out.println("Prazo: "+prazo+" dias");
+		System.out.println("Valor da compra: R$"+(valorCompra+frete));
+		System.out.println("Prioridade: ");
+	}
 }
