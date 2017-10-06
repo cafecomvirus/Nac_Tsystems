@@ -16,8 +16,6 @@ public class Pedido {
 	static String cliente = "";
 	static String data=""; 
 	static double valorCompra=0;
-	static String relatorio[][]=null;
-	
 	
 	public static void main(String[] args) {
 	
@@ -124,10 +122,6 @@ public class Pedido {
 		System.out.println("Prazo: "+prazo+" dias");
 		System.out.println("Valor da compra: R$"+Math.round(valorCompra+frete));
 		System.out.println("Prioridade: ");
-	}
-	
-	public static void armazenarPedido(){
-		
 	}
 	
 	public static void relatorio(){
