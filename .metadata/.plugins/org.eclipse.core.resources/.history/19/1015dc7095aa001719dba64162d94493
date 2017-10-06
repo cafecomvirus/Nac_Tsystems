@@ -24,7 +24,7 @@ public class Pedido {
 			//calculaFrete(calculaDistancia());
 			finalizaPedido(calculaFrete(calculaDistancia()));
 		}
-		relatorio();
+		
 	}
 
 	public static String cadastrarPedido(){
@@ -36,6 +36,14 @@ public class Pedido {
 		return continuar;
 	}
 	
+	public static String outroPedido(){
+		String continuar = "";
+		System.out.println("Deseja cadastrar um novo pedido?");
+		System.out.println("SIM - PARA CONTINUAR");
+		System.out.println("NÃO - PARA CANCELAR");
+		continuar=e.next();
+		return continuar;
+	}
 	
 	public static double[][] iniciarPedido() {
 		int qt=0;
@@ -122,9 +130,5 @@ public class Pedido {
 		System.out.println("Prazo: "+prazo+" dias");
 		System.out.println("Valor da compra: R$"+Math.round(valorCompra+frete));
 		System.out.println("Prioridade: ");
-	}
-	
-	public static void relatorio(){
-		
 	}
 }

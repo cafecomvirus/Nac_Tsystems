@@ -24,7 +24,7 @@ public class Pedido {
 			//calculaFrete(calculaDistancia());
 			finalizaPedido(calculaFrete(calculaDistancia()));
 		}
-		relatorio();
+		
 	}
 
 	public static String cadastrarPedido(){
@@ -122,9 +122,5 @@ public class Pedido {
 		System.out.println("Prazo: "+prazo+" dias");
 		System.out.println("Valor da compra: R$"+Math.round(valorCompra+frete));
 		System.out.println("Prioridade: ");
-	}
-	
-	public static void relatorio(){
-		
 	}
 }
