@@ -18,33 +18,11 @@ public class Pedido {
 	static double valorCompra=0;
 	
 	public static void main(String[] args) {
-	
-		while(cadastrarPedido().equalsIgnoreCase("sim")){
 			iniciarPedido();
 			//calculaFrete(calculaDistancia());
 			finalizaPedido(calculaFrete(calculaDistancia()));
-		}
-		
 	}
 
-	public static String cadastrarPedido(){
-		String continuar = "";
-		System.out.println("Deseja cadastrar um novo pedido? ");
-		continuar=e.next();
-		System.out.println("SIM - PARA CONTINUAR");
-		System.out.println("NÃO - PARA CANCELAR");
-		return continuar;
-	}
-	
-	public static String outroPedido(){
-		String continuar = "";
-		System.out.println("Deseja cadastrar um novo pedido?");
-		continuar=e.next();
-		System.out.println("SIM - PARA CONTINUAR");
-		System.out.println("NÃO - PARA CANCELAR");
-		return continuar;
-	}
-	
 	public static double[][] iniciarPedido() {
 		int qt=0;
 		//para controlar o indice da matriz
@@ -128,7 +106,7 @@ public class Pedido {
 		System.out.println("Cor 2 "+" - Quantidade: "+infoPedido[1][0] +" - Valor: R$"+infoPedido[1][1]);
 		System.out.println("Cor 3 "+" - Quantidade? "+infoPedido[2][0] +" - Valor: R$"+infoPedido[2][1]);
 		System.out.println("Prazo: "+prazo+" dias");
-		System.out.println("Valor da compra: R$"+Math.round(valorCompra+frete));
+		System.out.println("Valor da compra: R$"+(valorCompra+frete));
 		System.out.println("Prioridade: ");
 	}
 }
