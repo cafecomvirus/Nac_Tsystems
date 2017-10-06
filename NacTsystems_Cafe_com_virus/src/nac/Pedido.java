@@ -7,8 +7,9 @@ public class Pedido {
 	static Scanner e = new Scanner(System.in);
 	static double precoVolumePeso[][] = new double[][] { { 1, 15.00, 0.012, 3.0 }, { 2, 16.00, 0.010, 2.4 },
 			{ 3, 17.00, 0.011, 3.6 } };
-	static double ctDistribuicao[][] = new double[][] { { -23.5489, -46.6388 }, { -30.0277, -51.2287 },
-			{ -12.9704, -38.5124 }, { -8.05428, -34.8813 }, { -16.6799, -49.255 }, { -3.10719, -60.0261 } };	
+	static double ctDistribuicao[][] = new double[][] { {1,  -23.5489, -46.6388 }, {2,  -30.0277, -51.2287 },
+			{3, -12.9704, -38.5124 }, {4, -8.05428, -34.8813 }, {5, -16.6799, -49.255 }, {6,  -3.10719, -60.0261 } };
+	static String cd[]=new String[]{"São Paulo", "Porto Alegre", "Salvador", "Recife", "Goiânia", "Manaus"};
 	static double localCli[] = new double[2];	
 	//quantidade - preco - peso	
 	static double infoPedido[][] = new double [3][3];
@@ -17,7 +18,7 @@ public class Pedido {
 	static String data=""; 
 	static double valorCompra=0;
 	static String relatorio[][]=null;
-	
+	static int indCD=0;
 	
 	public static void main(String[] args) {
 	
@@ -75,13 +76,15 @@ public class Pedido {
 		double menorDistancia=0;																				
 		double distancia[]=new double [6];							
 		for(int i = 0; i<6; i++){
-			distancia[i]=Math.sqrt(Math.pow((localCli[0]-ctDistribuicao[i][0]),2)-Math.pow((localCli[1]-ctDistribuicao[i][1]), 2))*d;	
+			distancia[i]=Math.sqrt(Math.pow((localCli[0]-ctDistribuicao[i][1]),2)-Math.pow((localCli[1]-ctDistribuicao[i][2]), 2))*d;	
 		}
 		for(int j = 0; j<6; j++){
 			if(j==0){
 				menorDistancia=distancia[j];
+				indCD=j;
 			}else if(distancia[j]<menorDistancia){
 				menorDistancia=distancia[j];
+				indCD=j;
 			}
 		}
 		
@@ -123,7 +126,7 @@ public class Pedido {
 		System.out.println("Cor 3 "+" - Quantidade? "+infoPedido[2][0] +" - Valor: R$"+infoPedido[2][1]);
 		System.out.println("Prazo: "+prazo+" dias");
 		System.out.println("Valor da compra: R$"+Math.round(valorCompra+frete));
-		System.out.println("Prioridade: ");
+		System.out.println("Centro de Distribuição: "+cd[indCD]);
 	}
 	
 	public static void armazenarPedido(){
